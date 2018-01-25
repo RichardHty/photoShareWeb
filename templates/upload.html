@@ -1,0 +1,35 @@
+<!-- author ben lawson (balawson@bu.edu) -->
+<head>
+    <title>Upload a photo!</title>
+</head>
+    <body>
+        <div class="title">
+			{% if not albums %}
+				<h1>Create an album first!</h1>
+			{% else %}
+				<h1>Upload a photo to Photoshare or create another album!</h1>
+			{% endif %}
+        </div>
+		<form method = "post" action = "/upload">
+			<input type = "text" name = "newAlbumName" required = "true" placeholder = "album name" />
+			<input type = "submit" name = "submitNewAlbumName" value = "Create a new album" />
+		</form>
+		{% if albums %}
+		<form method="post" enctype="multipart/form-data" action="/upload">
+			<label for="photo">Select photo:</label>
+			<input type="file" name="photo" required='true' /><br />
+			<label for="caption">Please caption:</label>
+			<input type="text" name="caption" required='true' /><br />
+			<select name = "album" required = "true">
+				{% for albumID, albumName in albums %}
+				<option value = "{{albumID}}">{{albumName}}</option>
+				{% endfor %}
+			</select>
+			<input type="submit" name = "submitNewPhoto" value="Upload" />
+		</form>
+		{% endif %}
+    </body>
+<ul>
+    <li><a href='/profile'>Profile</a> </li>
+    <li><a href='/'>Home</a></li>
+</ul>

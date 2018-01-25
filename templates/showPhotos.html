@@ -1,0 +1,40 @@
+<!doctype html>
+<head>
+<meta charset="UTF-8">
+</head>
+<title> View Multiple Photos </title>
+
+<body>
+{% if switchMessage %}
+	<form method = "post">
+		<input type = "submit" name = "filter" value = "{{switchMessage}}" />
+	</form>
+	<br>
+{% endif %}
+{% if photoAll %}
+	<table id = "tableArea" style = "border: 1px solid black;">
+	{% for photoRow in photoAll %}
+		<tr>
+		{% for photo in photoRow %}
+			<td  style = "width: 400px; height: 320px; border: 1px solid black; text-align: center;">
+			<form method = "post">
+				<input type = "image" name = "image" src = '/upload/{{photo[2]}}' alt="{{photo[1]}}" value = "{{photo[0]}}" style = "max-width:400px; max-height: 320px;"/>
+			</form>
+			</td>
+		{% endfor %}
+		</tr>
+	{% endfor %}
+	</table>
+	<br>
+{% endif %}
+{% if canDelete %}
+	<form method = "post">
+		<input type = "submit" name = "delete" value = "Delete this album" />
+	</form>
+{% endif %}
+</body>
+
+<ul>
+    <li><a href='/profile'>Profile</a> </li>
+    <li><a href='/'>Home</a></li>
+</ul>

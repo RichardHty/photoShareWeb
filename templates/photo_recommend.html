@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body>
+
+    {% if photos%}
+        <table  style = "border: 1px solid black;">
+        {% for photo in photos %}
+            <tr>
+                <td  style = "width: 400px; height: 320px; border: 1px solid black; text-align: center;">
+                    <img style="max-height:640px;max-width:640px;" src = "/upload/{{photo.data}}"/>
+                    <td style = "width: 100px; height: auto; border: 1px solid black; text-align: center;">
+                    {% for tag in photo.tag %}
+                        {{ tag }}
+                    {% endfor %}
+                    </td>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </table>
+	<br>
+    {% endif %}
+
+    {% if photoRec and top5Tag%}
+        <div class="w3-container">
+        <p>Your top 5 used tags:</p>
+        <p style="white-space: nowrap;">
+        {% for tag in top5Tag %}
+            {{ tag[0] }}
+        {% endfor %}
+        </p>
+            <table style = "border: 1px solid black;">
+            {% for photo in photoRec %}
+                <tr>
+                    <td  style = "width: 400px; height: 320px; border: 1px solid black; text-align: center;">
+                        <img style = "max-width: 640px; max-height: 640px;" src = "/upload/{{photo.data}}"/>
+                    </td>
+                    <td style = "width: 100px; height: auto; border: 1px solid black; text-align: center;">
+                        Matched Counts:{{ photo.value}}
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+            <br>
+        </div>
+    {% endif %}
+
+    {% if formattedResult is not none %}
+        <div class="w3-container">
+            <h2>The listed users made the comment you enter</h2>
+        <table class="w3-table w3-bordered w3-striped">
+                <thead>
+                <tr><th>User Name</th><th>Matched Counts</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                        {% for foo in formattedResult %}
+                          <tr><td>  {{foo.userName}}</td><td>{{ foo.matchCount }}</td></tr>
+                        {% endfor %}
+
+                </tbody>
+                </table>
+        </div>
+    {% endif %}
+    {% if message is not none %}
+        <h2>{{ message }}</h2>
+    {% endif %}
+</body>
+<ul>
+    <li><a href='/profile'>Profile</a> </li>
+    <li><a href='/logout'>Logout</a></li>
+    <li><a href='/'>Home</a></li>
+</ul>
+</html>

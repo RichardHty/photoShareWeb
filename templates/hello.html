@@ -1,0 +1,165 @@
+<!-- author ben lawson (balawson@bu.edu) -->
+<!doctype html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>Photoshare</title>
+</head>
+
+<body>
+<div class="w3-container">
+
+	{% if message and not viewOthers %}
+	  <h2>{{message}}!</h2>
+        {% elif message == 'Welecome to Photoshare' or message =='Photo uploaded!'%}
+            <h1 style="">{{message}}!</h1>
+
+	{% endif %}
+	<title>Photoshare</title>
+
+    {% if viewOthers and name%}
+        <h2>Welcome to {{ name }}'s PhotoShare Platform!</h2>
+    {% endif %}
+
+    {% if not viewOthers and login_state%}
+	<table class="w3-table w3-bordered w3-striped" style="width: 400px;height: auto">
+		<tbody>
+        {% if name %}
+	        <tr>
+			<td>Name</td> <td>{{ name }}</td>
+			</tr>
+	    {% endif %}
+		{% if email %}
+			<tr>
+			<td>Email</td> <td>{{ email }}</td>
+			</tr>
+		{% endif %}
+		{% if gender and gender !='U' %}
+		<tr>
+			<td> Gender </td><td>{{ gender }}</td>
+		</tr>
+		{% endif %}
+		{% if DOB %}
+		<tr>
+			<td>Date Of Birth</td><td>{{ DOB }}</td>
+		</tr>
+		{% endif %}
+		{% if hometown and hometown !='unknown' %}
+		<tr>
+			<td>Hometown</td><td>{{ hometown }}</td>
+		</tr>
+		{% endif %}
+
+
+		</tbody>
+	</table><br/>
+    {% endif %}
+	{% if albums %}
+		<h2>Albums</h2>
+		<ul>
+		{% for album in albums %}
+			<li><form method = 'POST'><button name = "albumName" type = "submit" value = "{{album[0]}}">{{album[1]}}</button></form></li>
+            <p></p>
+		{% endfor %}
+		</ul>
+	{% endif %}
+	<br/>
+
+    {% if login_state and not viewOthers%}
+        <form action="/photo_recommend" method="post">
+            <input style="width: 400px; height: 30px;" type="text" name="searchByComment" placeholder="Search User By Comment.." required = "true">
+        </form >
+        <br>
+        <form action="/photo_recommend" method="post">
+            <input style="width: 200px; height: 30px;" type="text" name="searchByTag" placeholder="Search All Photo By Tag..." required = "true">
+            <button type="submit" name="searchByTagAnd" value="1">Search intersection</button>
+            <button type="submit" name="searchByTagOr" value="0">Search Union</button>
+        </form >
+        {% if topTags %}
+            <p style="white-space: nowrap;">Your frequently used tags:
+            {% for tag in topTags %}
+                {{ tag[0] }}
+            {% endfor %}
+            {% endif %}
+            </p>
+    {% endif %}
+	<div class="w3-container">
+	<!-- for simplicity, this is only allowed in homepage -->
+	{% if allowSearching %}
+		<h2>Select a method to browse others photos</h2>
+		<form method = 'POST'>
+		<input type = "text" name = "keyword" required = "true" />
+		<select name = "method" required = "true" placeholder = "browse by">
+			<option value = "byEmail">Email</option>
+			<option value = "byTag">Tag</option>
+		</select>
+		<input type="submit" name = "search" value="Search" />
+		</form>
+        <br>
+	{% endif %}
+    <div>
+	{% if errorMessage %}
+		{{errorMessage}}
+	{% endif %}
+    </div>
+    {% if tags %}
+        <div id="tagTop" style="width: 350px;height:auto;display: inline;float: left">
+        <p>Top 10 used Tags:</p>
+        <table class="w3-table w3-bordered w3-striped"  style="width: 350px;height:auto;text-align: center;">
+                <thead>
+                <tr><th>Tag Name</th><th>Used Counts</th>
+                </tr>
+                </thead>
+                <tbody>
+                        {% for tag in tags %}
+                            <tr><td><a href = "/showPhotos/{{tag.tag}}">{{tag.tag}}</a></td><td>{{ tag.count }}</td></tr>
+                        {% endfor %}
+                </tbody>
+                </table>
+        </div>
+    {% endif %}
+        {% if contribution %}
+            <div style="width: 350px;height:auto;display: inline;float: left;margin-left: 50px">
+            <p>Top 10 users:</p>
+        <table class="w3-table w3-bordered w3-striped" style="width: 350px;height:auto;text-align: center;">
+                <thead>
+                <tr><th>User Name</th><th>Contribution Scores</th>
+                </tr>
+                </thead>
+                <tbody>
+                        {% for u in contribution %}
+                            <tr><td>{{u.userName}}</td><td>{{ u.scoreSum }}</td></tr>
+                        {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        {% endif %}
+
+	</div>
+
+	{% if message is none and not login_state%}
+	  <p>You should <a href='/login'>login!</a></p>
+	{% elif login_state%}
+        {% if not email %}
+	  <p> Go to your <a href='/profile'>profile?</a></p>
+            {% endif %}
+        <ul>
+            <li><a href='/upload'>Upload a photo</a> </li>
+            <li><a href='/add_friendList'>Show Friend List/Add Friend</a> </li>
+            <li><a href='/photo_recommend'>Photos you may like</a></li>
+            <li><a href='/logout'>Logout</a></li>
+        </ul>
+	{% endif %}
+
+    <ul>
+        {% if not login_state%}
+            <li><a href='/login'>Login</a></li>
+            <li><a href='/register'>Sign Up</a></li>
+        {% endif %}
+        <li><a href='/'>Home</a></li>
+    </ul>
+
+</div>
+</body>
+
+

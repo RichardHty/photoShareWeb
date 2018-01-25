@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+<body>
+        <div class="w3-container">
+        {% if friendNum == 0 %}
+            <h1>You have no friend recently</h1>
+            {% endif %}
+            {% if searchID is not none and searchID !=0%}
+            {% for foo in searchID %}
+                <h2>Here is your search result:</h2>
+                    <form action="/add_friendList" method="post">
+                    <h3>{{ foo.searchedName }}</h3>
+                        <button name="addFriend" type="submit"  value={{ foo.searchedID }}/>add the user</button>
+                    </form>
+
+            {% endfor %}
+            {% endif %}
+            {% if searchID == 0 %}
+            <h3>No such user.Try again.</h3>
+        {% endif %}
+        </div>
+
+    {% if message is not none %}
+    <h1>{{ message}}</h1>
+    {% endif %}
+
+            {% if friendNum != 0 %}
+                <div class="w3-container" style="width: 400px;height:auto;display: inline;float: left">
+            <h2>Here is your friend list</h2>
+            <table class="w3-table w3-bordered w3-striped" style="width: 400px;">
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                    {% for friendName in friendNames %}
+                      <tr><td>  {{friendName}}</td></tr>
+                    {% endfor %}
+
+            </tbody>
+            </table><br/>
+
+                </div>
+        {% endif %}
+
+        {% if recommends is not none and recommends %}
+            <div class="w3-container" style="width: 550px;height:auto;display: inline;float: left;margin-left: 20px">
+            <h2>People you may want to add</h2>
+            <form action="/add_friendList" method="post">
+                <table  class="w3-table w3-bordered w3-striped" style="width: 500px;">
+                    <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Mutual Friend Number</th>
+                        <th>Option</th>
+                    </tr>
+                    </thead>
+                <tbody>
+                    {% for recommendFriend in recommends %}
+                        <tr>
+                            <td> {{recommendFriend.name}}</td>
+                            <td>{{ recommendFriend.value }}</td>
+                            <td> <input type="checkbox" name="recommends[]" value="{{recommendFriend.id}}" /></td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+                </table><br >
+                <br >
+
+                <input type="submit" value="AddFriend"  style="float: right" />
+            </form>
+
+            </div>
+        {% endif %}
+<div class="w3-container">
+    <h2>Search a user</h2>
+        <form action="/add_friendList" method="post">
+            <input type="text" name="searchByEmail" placeholder="Search By Email..">
+        </form >
+</div>
+</body>
+<ul>
+    <li><a href='/upload'>Upload a photo</a> </li>
+    <li><a href="/profile">Profile</a> </li>
+    <li><a href='/logout'>Logout</a></li>
+    <li><a href='/'>Home</a></li>
+</ul>
+</html>

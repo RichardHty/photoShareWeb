@@ -1,0 +1,79 @@
+<!doctype html>
+<head>
+<title> View Single Photo </title>
+</head>
+<body>
+    <div>
+    <!-- use this when not run using flask: <img style="max-height:768px;max-width:1024px;" src = "../upload/152 (3).jpg"> -->
+    <img style="max-height:768px;max-width:1024px;" src = "/upload/{{image}}"/>
+    {% if caption %}
+    <p>
+    captions: {{caption}}
+    </p>
+    {% endif %}
+    </div>
+
+    <div id = "tags">
+    Tags:<br>
+    {% if tags %}
+    <ul>
+        {% for tag in tags %}
+            <li><a href = "/showPhotos/{{tag[0]}}">{{tag[0]}}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    </div>
+
+    <form method = "post">
+        <input type = "text" name = "tag" size = "16" placeholder = "Add tag here!" required = "true">
+        <input id = "writeTag" name = "submitTag" type = "submit" value = "Add"/>
+    </form>
+
+    <br>
+
+    {% if canLike %}
+        <form method = "post"><input type = "submit" name = "like" value = "Like!" /></form>
+    {% endif %}
+
+    <br>
+
+    {% if likeCount %}
+        <p>{{ likeCount[0][0] }} users liked this photo:</p>
+        {% if likeUsers %}
+            <p style="white-space: nowrap;">
+            {% for foo in likeUsers %}
+                {{ foo }};
+            {% endfor %}
+            </p>
+            {% endif %}
+    {% endif %}
+    <div id = "comments">
+    Comments:<br>
+    {% if comments %}
+    <ul>
+        {% for c in comments %}
+            <li>{{c[0]}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    </div>
+    <br>
+    <div>
+    {% if canComment %}
+        <form method = "post">
+            <textarea rows = "8" cols = 100" name = "comment" placeholder = "Write your comment here!"></textarea>
+            <input id = "writeComment" type = "submit" name = "submitComment" />
+        </form>
+        <br>
+    {% else %}
+        <form method = "post">
+            <input type = "submit" name = "delete" value = "Delete this photo" />
+        </form>
+    {% endif %}
+
+    </div>
+</body>
+<ul>
+    <li><a href='/profile'>Profile</a> </li>
+    <li><a href='/'>Home</a></li>
+</ul>

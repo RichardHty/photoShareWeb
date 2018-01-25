@@ -1,0 +1,46 @@
+<!-- author ben lawson balawson@bu.edu -->
+
+
+<head>
+    <title>Create an account!</title>
+</head>
+
+
+{%if not supress%}
+<h1> Email already in use! Use another one or <a href="/login">login</a></h1>
+{% endif %}
+    <body>
+        <div class="title">
+            <h1>Enter your information below</h1>
+        </div>
+        <div id="content" class="w3-container">
+            <form method="post" action="{{ url_for('register_user') }}">
+                <label for="email">Enter your email:</label>
+                <input type="email" name="email" required/><br>
+                <label for="password" >Enter password:</label>
+                <input type="password" name="password" required/><br>
+
+                <label for="fname">First name: </label>
+                <input type="fname" name="fname" required/><br>
+                <label for="lname">Last name: </label>
+                <input type="lname" name="lname" required /><br>
+
+                <label for="DOB">Date of birth </label><br>
+                <span style="width: 200px;height: 2px"></span>
+                <label for="year">Year:<input name="year" type="number" min="1800" max="2017" required/></label>
+                <label for="month">Month:<input name="month" type="number" min="1" max="12" required/></label>
+                <label for="day">Day:<input name="day" type="number" min="1" max="31" required/></label>
+                <br>
+
+                <input type="submit" />
+            </form>
+            <label for="gender">Gender: </label>
+            <input type="gender" name="gender" required = "" /><br>
+
+            <label for="hometown">Hometown </label>
+            <input type="hometown" name="hometown" required = ""/><br>
+
+         </div>
+    </body>
+
+<a href='/'>Home</a>
