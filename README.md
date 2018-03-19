@@ -1,1 +1,1 @@
-#online photo share system by Tianyou Huang and Sha Lai.
+## online photo share system by Tianyou Huang and Sha Lai.
