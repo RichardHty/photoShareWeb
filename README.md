@@ -3,7 +3,7 @@
 ###### online photo share system by Tianyou Huang and Sha Lai.
 
 How to deploy python & flask web app on AWS EC2(terminal way):
-- Set up an instance on AWS EC2
+- Set up an Ubuntu instance on AWS EC2
 - download private key on console
 
 - ``` chmod 600 <path to your private key> ``` 
