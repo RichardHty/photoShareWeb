@@ -16,7 +16,7 @@
 	{% for photoRow in photoAll %}
 		<tr>
 		{% for photo in photoRow %}
-			<td  style = "width: 400px; height: 320px; border: 1px solid black; text-align: center;">
+			<td  style = "width: 400px; height: 320px; text-align: center;">
 			<form method = "post">
 				<input type = "image" name = "image" src = '/upload/{{photo[2]}}' alt="{{photo[1]}}" value = "{{photo[0]}}" style = "max-width:400px; max-height: 320px;"/>
 			</form>
