@@ -65,6 +65,6 @@ WSGIScriptAlias / /var/www/html/flaskapp/flaskapp.wsgi
 
 
 ## deployed on:
-http://18.218.143.71/
+http://www.tianyouh.com/
 
 
