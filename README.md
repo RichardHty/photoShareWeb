@@ -64,7 +64,8 @@ WSGIScriptAlias / /var/www/html/flaskapp/flaskapp.wsgi
 
 
 
-## deployed on:
-http://www.tianyouh.com/
+## View at [tianyou's site]
+
+[tianyou's site]:http://photoshare.tianyouh.com
 
 
